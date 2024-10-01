@@ -1,6 +1,8 @@
 package com.bettingground.product.domain.entity;
 
+import com.bettingground.product._common.*;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import static jakarta.persistence.GenerationType.*;
@@ -21,6 +23,14 @@ public class Product extends BaseEntity {
     private String productToken;
     private String name;
     private Long price;
+    @Min(0)
     private Long stock;
 
+    @Builder
+    public Product(String name, Long price, Long stock) {
+        this.productToken = TokenGenerator.randomCharacterWithPrefix(PRODUCT_TOKEN_PREFIX);
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
 }
